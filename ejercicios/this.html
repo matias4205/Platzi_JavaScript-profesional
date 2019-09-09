@@ -14,11 +14,11 @@
 
     <script>
       // this en el scope global
-      console.log(`this: ${this}`);
+      console.log(`this: ${this}`); //Es window
 
       // this en el scope de una función
       function whoIsThis() {
-        return this;
+        return this; //Es window
       }
 
       console.log(`whoIsThis(): ${whoIsThis()}`);
@@ -26,7 +26,7 @@
       // this en el scope de una función en strict mode
       function whoIsThisStrict() {
         'use strict';
-        return this;
+        return this; //Es undefined ya que el useStrict no asigna el this por defecto
       }
 
       console.log(`whoIsThisStrict(): ${whoIsThisStrict()}`);
