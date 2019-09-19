@@ -1,7 +1,8 @@
 class AutoPause{
     constructor(){
         this.threshold = 0.25;
-        this.handleIntersection = this.handleIntersection.bind(this); //Le bindeamos this ya que sino tira "player.play is undefined"
+        this._handleIntersection = this._handleIntersection.bind(this); //Le bindeamos this ya que sino tira "player.play is undefined"
+        this._handleVisibility = this._handleVisibility.bind(this);
     }
 
     run(player){
@@ -12,31 +13,29 @@ class AutoPause{
     }
 
     _initVisibilityChange(){
-        document.addEventListener('visibilitychange', () => {
-            const isVisible = document.visibilityState === 'visible';
-
-            isVisible ? this.player.play() : this.player.pause();
-        });
+        document.addEventListener('visibilitychange', this.handleVisibility);
     }
 
     _initIntersectionObserver(){
         const observer = new IntersectionObserver(this.handleIntersection, {
             threshold: this.threshold, //El humbral de trigger del handler en este caso 25%
         });
-
         observer.observe(this.player.media);
     }
 
-    handleIntersection(entries){
+    _handleIntersection(entries){
         const [entry] = entries;
-
         const isVisible = entry.intersectionRatio >= this.threshold;
+        this._playPause(isVisible);
+    }
 
-        if(isVisible){
-            this.player.play();
-        }else{
-            this.player.pause();
-        }
+    _handleVisibility(){
+        const isVisible = document.visibilityState === 'visible';
+        this._playPause(isVisible);
+    }
+
+    _playPause(isVisible){
+        isVisible ? this.player.play() : this.player.pause();
     }
 };
 
