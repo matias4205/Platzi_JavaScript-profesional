@@ -1,4 +1,9 @@
+import MediaPlayer from '../MediaPlayer';
+
 class AutoPause{
+    private threshold: number;
+    player: MediaPlayer
+    
     constructor(){
         this.threshold = 0.25;
         this._handleIntersection = this._handleIntersection.bind(this); //Le bindeamos this ya que sino tira "player.play is undefined"
@@ -12,29 +17,29 @@ class AutoPause{
         this._initVisibilityChange();
     }
 
-    _initVisibilityChange(){
-        document.addEventListener('visibilitychange', this.handleVisibility);
+    private _initVisibilityChange(){
+        document.addEventListener('visibilitychange', this._handleVisibility);
     }
 
-    _initIntersectionObserver(){
-        const observer = new IntersectionObserver(this.handleIntersection, {
+    private _initIntersectionObserver(){
+        const observer = new IntersectionObserver(this._handleIntersection, {
             threshold: this.threshold, //El humbral de trigger del handler en este caso 25%
         });
         observer.observe(this.player.media);
     }
 
-    _handleIntersection(entries){
-        const [entry] = entries;
+    private _handleIntersection(entries: IntersectionObserverEntry[]){
+        const entry = entries[0];
         const isVisible = entry.intersectionRatio >= this.threshold;
         this._playPause(isVisible);
     }
 
-    _handleVisibility(){
+    private _handleVisibility(){
         const isVisible = document.visibilityState === 'visible';
         this._playPause(isVisible);
     }
 
-    _playPause(isVisible){
+    private _playPause(isVisible){
         isVisible ? this.player.play() : this.player.pause();
     }
 };

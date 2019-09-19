@@ -4,7 +4,8 @@
   "description": "Proyecto del curso profesional de javascript",
   "main": "index.js",
   "scripts": {
-    "start": "live-server"
+    "start": "live-server",
+    "start:type": "parcel index.html ejercicios/index.html ejercicios/**/*.html"
   },
   "keywords": [
     "platzi"
@@ -12,6 +13,13 @@
   "author": "matias4205",
   "license": "MIT",
   "devDependencies": {
-    "live-server": "^1.2.1"
-  }
+    "live-server": "^1.2.1",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "parcel-bundler": "^1.12.3"
+  },
+  "browserslist": [
+    "last 1 Firefox version"
+  ]
 }
