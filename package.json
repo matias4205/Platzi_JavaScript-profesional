@@ -13,12 +13,10 @@
   "author": "matias4205",
   "license": "MIT",
   "devDependencies": {
-    "live-server": "^1.2.1",
+    "parcel-bundler": "^1.12.3",
     "typescript": "^3.6.3"
   },
-  "dependencies": {
-    "parcel-bundler": "^1.12.3"
-  },
+  "dependencies": {},
   "browserslist": [
     "last 1 Firefox version"
   ]
