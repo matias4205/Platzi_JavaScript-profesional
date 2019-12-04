@@ -6,7 +6,7 @@ class Singleton{
     }
 
     static getInstance(){
-        if(Singleton.instance){
+        if(!Singleton.instance){
             Singleton.instance = new Singleton();
         }
 
